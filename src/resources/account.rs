@@ -1,12 +1,15 @@
-use crate::client::r#async::Client;
+use crate::Client;
+use reqwest::Response;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Balance {
     status: u8,
     request: String,
     balance: f32,
 }
 
+#[warn(dead_code)]
 pub struct GetBalance<'a> {
     client: &'a Client,
 }
@@ -16,9 +19,10 @@ impl<'a> GetBalance<'a> {
         GetBalance { client }
     }
 
-    pub fn execute(&self) -> Result<Balance, reqwest::Error> {
-        let response = self.client.get("res.php?key={}&action=getbalance")?;
-        let balance: Balance = response.json()?;
+    pub async fn execute(&self) -> Result<Balance, reqwest::Error> {
+        let response: Response = self.client.get("res.php?key={}&action=getbalance").await?;
+        let balance = response.json::<Balance>().await?;
         Ok(balance)
     }
+
 }

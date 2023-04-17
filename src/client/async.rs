@@ -21,11 +21,11 @@ impl Client {
     }
 
     pub async fn get(&self, path: impl Into<String>) -> Result<reqwest::Response, reqwest::Error> {
-        self.reqwest_client.get(&format!("{}{}", self.host, path)).send()
+        self.reqwest_client.get(&format!("{}{}", self.host, path.into())).send().await
     }
 
-    pub async fn post(&self, path: impl Into<String>) -> Result<reqwest::Response, reqwest::Error> {
-        self.reqwest_client.post(&format!("{}{}", self.host, path)).send()
+    pub async fn post(&self, path: impl Into<String>) ->  Result<reqwest::Response, reqwest::Error> {
+        self.reqwest_client.post(&format!("{}{}", self.host, path.into())).send().await
     }
 
 }

@@ -1,9 +1,19 @@
+/**
+ * AntiCaptcha API Client
+ */
+mod resources;
+pub use crate::resources::*;
 
-mod client {
+pub mod client {
     #[cfg(feature = "blocking")]
     pub mod blocking;
 
     pub mod r#async;
 }
 
-mod resources;
+
+pub mod config {
+    pub type Client = crate::client::r#async::Client;
+}
+
+pub use config::Client;

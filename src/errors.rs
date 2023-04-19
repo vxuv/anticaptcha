@@ -10,7 +10,7 @@ pub enum ApiErrors {
     ReportNotRecorded,
     DuplicateReport,
     AccountSuspended,
-    IpNOtAllowed,
+    IpNotAllowed,
     TokenExpired,
     MissingAction,
     BadProxy

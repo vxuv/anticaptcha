@@ -4,6 +4,7 @@ version = "0.1.1"
 edition = "2021"
 description = "2Captcha API client"
 license = "MIT"
+repository = "https://github.com/vxuv/anticaptcha"
 
 [dependencies]
 reqwest = { version = "0.11", features = ["json"] }

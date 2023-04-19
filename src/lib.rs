@@ -1,7 +1,9 @@
 /**
- * AntiCaptcha API Client
+ * Captcha Solving Rust Library
  */
-mod resources;
+pub mod errors;
+pub mod resources;
+pub use crate::errors::*;
 pub use crate::resources::*;
 
 pub mod client {

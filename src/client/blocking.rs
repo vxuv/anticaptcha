@@ -1,3 +1,7 @@
+/*
+    Not Supported Yet
+ */
+/*
 use reqwest::Client as ReqwestClient;
 
 #[derive(Debug)]
@@ -27,5 +31,5 @@ impl Client {
     pub fn post(&self, path: impl String) -> Result<reqwest::Response, reqwest::Error> {
         self.reqwest_client.post(&format!("{}{}", self.host, path)).send()
     }
-
 }
+*/

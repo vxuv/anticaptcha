@@ -1,9 +1,10 @@
 use reqwest::Client as ReqwestClient;
+use crate::errors::{ApiErrors, ClientError};
 
 #[derive(Debug)]
 pub struct Client {
     host: String,
-    api_key: String,
+    pub api_key: String,
     reqwest_client: ReqwestClient,
 }
 
@@ -20,12 +21,29 @@ impl Client {
         }
     }
 
-    pub async fn get(&self, path: impl Into<String>) -> Result<reqwest::Response, reqwest::Error> {
-        self.reqwest_client.get(&format!("{}{}", self.host, path.into())).send().await
+    fn format_url(&self, path: String) -> String {
+        format!("{}{}&key={}&json=1", self.host, path, self.api_key)
     }
 
-    pub async fn post(&self, path: impl Into<String>) ->  Result<reqwest::Response, reqwest::Error> {
-        self.reqwest_client.post(&format!("{}{}", self.host, path.into())).send().await
+    pub async fn get(&self, path: impl Into<String>) -> Result<reqwest::Response, ClientError> {
+        let response = self.reqwest_client.get(&self.format_url(path.into())).send().await;
+        match response {
+            Ok(response) => Ok(response),
+            Err(error) => Err(ClientError::Reqwest(error)),
+        }
+        
     }
+
+    pub async fn post(&self, path: impl Into<String>) -> Result<reqwest::Response, reqwest::Error> {
+        self.reqwest_client.post(&self.format_url(path.into())).send().await
+    }
+
+    /*
+    pub fn parse_error(&self, response: reqwest::Response) -> Result<(), ClientError> {
+        let error: ApiErrors = response.json().await?;
+        Err(ClientError::Api(error))
+    }
+    */
+
 
 }

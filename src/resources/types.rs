@@ -50,19 +50,3 @@ pub enum ApiSubmissionErrors {
     BadProxy
 }
 
-pub enum ApiRetrievalErrors {
-    CaptchaNotReady,
-    CaptchaUnsolvable,
-    WrongApiKey,
-    KeyDoesNotExist,
-    WrongIdFormat,
-    WrongCaptchaId,
-    BadDuplicates,
-    ReportNotRecorded,
-    DuplicateReport,
-    AccountSuspended,
-    IpNOtAllowed,
-    TokenExpired,
-    MissingAction,
-    BadProxy
-}
